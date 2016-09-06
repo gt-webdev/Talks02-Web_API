@@ -2,18 +2,20 @@ import React from 'react'
 import request from 'superagent-bluebird-promise'
 
 const API_URI_FB_OAUTH = 'https://www.facebook.com/dialog/oauth'
-const CLIENT_ID = ''
+const CLIENT_ID = '' //TODO: paste your client id here
 const REDIRECT_URI = 'http://localhost:8080/fb_redirect'
 const SCOPE = 'user_friends'
 const URI_FB_SIGN_IN = `${API_URI_FB_OAUTH}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPE}`
 
 export default React.createClass({
+
   getInitialState() {
     return {
       users: [],
       name: null
     }
   },
+
   componentDidMount() {
     request.get('/get_profile')
       .then((res) => {
@@ -36,11 +38,13 @@ export default React.createClass({
         console.log(err)
       })
   },
+
   compareFriends(a, b) {
     let happiness_1 = a.happiness ? a.happiness : -1
     let happiness_2 = b.happiness ? b.happiness : -1
     return happiness_2 - happiness_1
   },
+
   render() {
     return (
       <div className="padding-tb-md">
@@ -69,6 +73,7 @@ export default React.createClass({
           })}
         </div>
       </div>
-    );
+    )
   }
-});
+
+})
